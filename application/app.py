@@ -1,14 +1,27 @@
 import tensorflow as tf
+from tensorflow import keras
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pandas_datareader as data
-from requests.exceptions import HTTPError
+
+
+
 import streamlit as st
 import streamlit_lottie
 from streamlit_lottie import st_lottie
+from sklearn.preprocessing import StandardScaler 
+import tensorflow as tf
 
-from sklearn.preprocessing import MinMaxScaler
+# Use the recommended import path for LSTM
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.regularizers import l2
+
+from sklearn.model_selection import train_test_split
+
 
 
 
@@ -16,61 +29,96 @@ from sklearn.preprocessing import MinMaxScaler
 st.set_page_config(
     page_title="PCOS Prediction",
     layout="wide",
-    page_icon="📈"
+    page_icon="⚕️"
 )
 
+
+with st.sidebar:
+    st.title("PCOS Prediction using Multi-Layer Perceptron")
+    st.subheader("PCOS Identifier")
+    st.markdown(
+        """The objective of creating a PCOS Prediction project using a Multi-Layer Perceptron (MLP) in Streamlit is to develop an accessible, user-friendly application that aids in the early detection of Polycystic Ovary Syndrome (PCOS). By leveraging machine learning techniques, this project aims to analyze user-inputted medical data—such as ovarian follicle counts, AMH levels, and lifestyle factors—to predict the likelihood of PCOS. The application will provide users with instant feedback on their health status, empowering them to make informed decisions. Ultimately, this project seeks to raise awareness about PCOS, encourage proactive health management, and enhance patient outcomes through technology."""
+    )
+
+    st.success("Deployes")
+
 # Title
-st.title('PCOS Prediction Dashboard')
+st.title('Dashboard')
+
+data = pd.read_csv("C:/Users/Y.Tushaar/PCOS/training/cleaned_data.csv")
+st.dataframe(data)
 
 # Four columns for inputs
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    st.write("Left Ovarian Follicle Count")
-    left_follicle_value = st.number_input("Enter left follicle count", value=0.0, step=0.01, format="%.4f")
+    st.write("Left Ovarian follicle Count")
+    follicle_r = st.number_input(
+    "Enter left follicle count", 
+    value=0,  
+    min_value=0,  
+    max_value=30,  
+    step=1,  
+    format="%d"  
+)
 
 with col2:
     st.write("Right Ovarian Follicle Count")
-    right_follicle_value = st.number_input("Enter right follicle count", value=0.0, step=0.01, format="%.4f")
+    follicle_l = st.number_input(
+        "Enter right follicle count", 
+        min_value=0,  
+        max_value=30,  
+        value=0, 
+        step=1,  
+        format="%d" 
+    )
+
 
 with col3:
     st.write("AMH (ng/ml)")
-    amh_value = st.number_input("Enter AMH value", value=0.0, step=0.01, format="%.4f")
+    amh = st.number_input(
+        "Enter AMH value", 
+        min_value=1.0,  
+        max_value=20.0,  
+        value=1.0,  
+        step=0.01,  
+        format="%.4f" 
+    )
 
 with col4:
     st.write("Weight (kg)")
-    weight_value = st.number_input("Enter weight", value=0.0, step=0.01, format="%.4f")
+    weight_kg = st.number_input("Enter weight", min_value=40.0, max_value=170.0, step=0.1, format="%.1f")
 
 
 
 col5, col6  = st.columns(2)
 with col5:
     st.write("Hair-Growth Value")
-    hair_growth_value = st.selectbox("Do you have excessive hair growth ?", ["Yes", "No"])
+    hair_growth = st.selectbox("Do you have excessive hair growth ?", ["Yes", "No"])
 
 with col6:
     st.write("Skin-Colour")
-    skin_dark_bol_value = st.selectbox("Skin-Darkening ?", ["Yes", "No"])
+    skin_darkening = st.selectbox("Skin-Darkening ?", ["Yes", "No"])
 
 
 col7, col8  = st.columns(2)
 with col7:
     st.write("Cycle Hour")
-    menstrual_cycle_bol_value = st.selectbox("Menstrual Cycle?", ["4 [ Regular Cycles ]", "2 [ Irregular Cycles ]"])
+    cycle = st.selectbox("Menstrual Cycle?", ["4 [ Regular Cycles ]", "2 [ Irregular Cycles ]"])
 
 with col8:
     st.write("Fast Food")
-    fast_food_bol_value = st.selectbox("Fast Food Eater?", ["Yes", "No"])
+    fast_food = st.selectbox("Fast Food Eater?", ["Yes", "No"])
 
 
 
 col9, col10  = st.columns(2)
 with col9:
     st.write("Pimples")
-    pimples__bol_value = st.selectbox("Have Pimples?", ["Yes", "No"])
+    pimples = st.selectbox("Have Pimples?", ["Yes", "No"])
 
 with col10:
     st.write("Weight Gain Data")
-    weight_gain_bol_value = st.selectbox("Weight Gain recently?", ["Yes", "No"])
+    weight_gain = st.selectbox("Weight Gain recently?", ["Yes", "No"])
 
 
 
@@ -89,10 +137,13 @@ st.download_button(
 )
 
 
+
+target_variable = 'PCOS (Y/N)'
+
 X = data[['Follicle No. (R)', 'Follicle No. (L)', 'hair growth(Y/N)', 'Skin darkening (Y/N)',
            'Weight gain(Y/N)', 'Cycle(R/I)', 'Fast food (Y/N)', 'AMH(ng/mL)',
            'Pimples(Y/N)', 'Weight (Kg)']]
-y = data['PCOS (Y/N)']
+y = data[target_variable]
 
 # Step 2: Drop rows with any missing values in X
 X = X.dropna()
@@ -144,6 +195,35 @@ history = model.fit(X_train, y_train, epochs=500, batch_size=20, validation_data
 # Step 11: Evaluate the model on the test data
 loss, accuracy = model.evaluate(X_test, y_test)
 
+def get_user_input(follicle_r, follicle_l, hair_growth, skin_darkening, weight_gain, cycle, fast_food, amh, pimples, weight_kg):
+
+    hair_growth_numeric = 1 if hair_growth == 'Yes' else 0
+    skin_darkening_numeric = 1 if skin_darkening == 'Yes' else 0
+    weight_gain_numeric = 1 if weight_gain == 'Yes' else 0
+    fast_food_numeric = 1 if fast_food == 'Yes' else 0
+    pimples_numeric = 1 if pimples == 'Yes' else 0
+
+    user_data = pd.DataFrame([[follicle_r, follicle_l, hair_growth_numeric, skin_darkening_numeric,
+                                weight_gain_numeric, cycle, fast_food_numeric, amh, pimples_numeric, weight_kg]],
+                              columns=['Follicle No. (R)', 'Follicle No. (L)', 'hair growth(Y/N)', 
+                                       'Skin darkening (Y/N)', 'Weight gain(Y/N)', 'Cycle(R/I)', 
+                                       'Fast food (Y/N)', 'AMH(ng/mL)', 'Pimples(Y/N)', 'Weight (Kg)'])
+
+    # Perform one-hot encoding to match the training data structure
+    user_data_encoded = pd.get_dummies(user_data, columns=['Cycle(R/I)'], drop_first=True)
+
+    # Align columns with the stored column names from the training data
+    for col in X_train_columns:
+        if col not in user_data_encoded.columns:
+            user_data_encoded[col] = 0
+
+    # Ensure the order of columns matches
+    user_data_encoded = user_data_encoded[X_train_columns]
+
+    return user_data_encoded
+
+user_input = get_user_input(follicle_r, follicle_l, hair_growth, skin_darkening, weight_gain, cycle, fast_food, amh, pimples, weight_kg)
+user_input_scaled = scaler.transform(user_input)
 
 
 model = tf.keras.models.load_model('mlp_model.h5', compile=False)
@@ -153,4 +233,9 @@ user_pred_prob = model.predict(user_input_scaled)
 user_pred = (user_pred_prob > 0.5).astype(int)
 
 # Step 14: Display prediction result
-print(f"Prediction (PCOS 1=Yes, 0=No): {user_pred[0][0]}")
+if (user_pred[0][0]) == 0:
+    st.subheader(f"Yes, You are have PCOS.")
+elif (user_pred[0][0]) == 1:
+    st.subheader(f"No, You don't have PCOS.")
+else:
+    st.alert(f"Error: 404")
