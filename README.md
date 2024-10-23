@@ -11,5 +11,5 @@ cd "application"
 - Run the command inside current directory.
 
 ```bash
-streamnlit run app.py
+streamlit run app.py
 ```
