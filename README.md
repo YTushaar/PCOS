@@ -29,7 +29,7 @@ In the context of PCOS prediction, an MLP can be trained using a dataset contain
 
 ## About Project
 
-For this project, we used parameters out of 40 parameters.
+For this project, we used the following parameters out of 40 parameters.
 
 ```text
 follicle_r
@@ -37,7 +37,7 @@ follicle_l
 hair_growth
 skin_darkening
 weight_gain
-cycle
+cycle(R/I)
 fast_food
 amh
 pimples
@@ -121,7 +121,7 @@ pimples: (No)
 
 ## Docker Deployment
 
-- When , you wnated to deploy this app. Replace the file location in <kbd> app.py </kbd>.
+- When , you wanted to deploy this app. Replace the file location in <kbd> app.py </kbd>.
 
 ```bash
 data = pd.read_csv("/app/dataset/cleaned_data.csv")
