@@ -117,3 +117,17 @@ pimples: (No)
 ```
 
 ![PCOS Yes Result](/assets/images/PCOS_Yes_Result_Interface.png)
+
+
+## Docker Deployment
+
+- When , you wnated to deploy this app. Replace the file location in <kbd> app.py </kbd>.
+
+```bash
+data = pd.read_csv("/app/dataset/cleaned_data.csv")
+```
+
+```bash
+docker build -t pcos-streamlit .
+docker 
+```

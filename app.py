@@ -58,9 +58,8 @@ with st.sidebar:
 st.title('⚕️PCOS Disease Classifier')
 
 
-data = pd.read_csv(os.path.join(os.path.dirname(
-    __file__), "../PCOS-Research/dataset/cleaned_data.csv"))
-
+#data = pd.read_csv(os.path.join(os.path.dirname(__file__), "../PCOS-Research/dataset/cleaned_data.csv"))
+data = pd.read_csv("./dataset/cleaned_data.csv")
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:

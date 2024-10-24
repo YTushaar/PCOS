@@ -3,6 +3,8 @@ FROM python:3.12.7-bookworm
 WORKDIR /app
 
 COPY . /app
+COPY ./dataset /app/dataset
+
 
 COPY requirements.txt .
 
