@@ -128,6 +128,9 @@ data = pd.read_csv("/app/dataset/cleaned_data.csv")
 ```
 
 ```bash
-docker build -t pcos-streamlit .
-docker 
+docker build -t pcos-application .
+docker tag pcos-application debasishray/pcos-streamlit-app:v1.0
+
+docker image ls
+docker push debasishray/pcos-streamlit-app:v1.0
 ```
