@@ -55,7 +55,7 @@ with st.sidebar:
 
 
 # Title
-st.title('⚕️PCOS Identifier')
+st.title('⚕️PCOS Disease Classifier')
 
 
 data = pd.read_csv(os.path.join(os.path.dirname(

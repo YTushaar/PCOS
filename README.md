@@ -71,6 +71,8 @@ At last, it will show the result.
 
 ![PCOS_Interface](/assets/images/PCOS_Interface.png)
 
+## 
+
 ### Case 1: "Where there is no possibility for PCOS."
 
 ```text
@@ -91,6 +93,9 @@ pimples: (No)
 ```
 
 ![PCOS No Result](/assets/images/PCOS_No_Result_Interface.png)
+
+##
+
 
 ### Case 2: "Where there is possibility for PCOS."
 
