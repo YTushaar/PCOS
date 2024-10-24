@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
-
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -58,7 +58,8 @@ with st.sidebar:
 st.title('⚕️PCOS Identifier')
 
 
-data = pd.read_csv("../cleaned_data.csv")
+data = pd.read_csv(os.path.join(os.path.dirname(
+    __file__), "../PCOS-Research/dataset/cleaned_data.csv"))
 
 
 col1, col2, col3, col4 = st.columns(4)
