@@ -1,0 +1,9 @@
+tensorflow
+keras
+numpy
+pandas
+matplotlib
+pandas-datareader
+streamlit==1.38.0
+streamlit-lottie
+scikit-learn
