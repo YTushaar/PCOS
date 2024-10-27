@@ -27,6 +27,11 @@ In the context of PCOS prediction, an MLP can be trained using a dataset contain
 
 - **Hyperparameter Tuning**: The model’s performance can be improved by tuning hyperparameters such as the learning rate, number of hidden layers, activation functions, and regularization techniques.
 
+| File | Contents |
+|----------|----------|
+|<kbd> PCOS_Prediction.ipynb</kdb>| This file consists of PCOS related dataset and necessary features used for classification purposes. |
+| <kbd> app.py </kbd> |This file consists of necessary code to train and deploy model on streamlit and other components for classification purposes. |
+
 ## About Project
 
 For this project, we used the following parameters out of 40 parameters.
@@ -71,7 +76,7 @@ At last, it will show the result.
 
 ![PCOS_Interface](/assets/images/PCOS_Interface.png)
 
-## 
+##
 
 ### Case 1: "Where there is no possibility for PCOS."
 
@@ -96,7 +101,6 @@ pimples: (No)
 
 ##
 
-
 ### Case 2: "Where there is possibility for PCOS."
 
 ```text
@@ -118,7 +122,6 @@ pimples: (No)
 
 ![PCOS Yes Result](/assets/images/PCOS_Yes_Result_Interface.png)
 
-
 ## Docker Deployment
 
 - When , you wanted to deploy this app. Replace the file location in <kbd> app.py </kbd>.
@@ -136,3 +139,11 @@ docker push debasishray/pcos-streamlit-app:v1.0
 ```
 
 **[Link to docker image](https://hub.docker.com/repository/docker/debasishray/pcos-streamlit-app/general)**
+
+## Contributors
+
+<div align="center">
+    <a href="https://github.com/KartikeyL/PCOS_Prediction/graphs/contributors">
+        <img src="https://contrib.rocks/image?repo=KartikeyL/PCOS_Prediction" />
+    </a>
+</div>
