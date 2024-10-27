@@ -28,9 +28,9 @@ In the context of PCOS prediction, an MLP can be trained using a dataset contain
 - **Hyperparameter Tuning**: The model’s performance can be improved by tuning hyperparameters such as the learning rate, number of hidden layers, activation functions, and regularization techniques.
 
 | File | Contents |
-|----------|----------|
-|<kbd> PCOS_Prediction.ipynb</kdb>| This file consists of PCOS related dataset and necessary features used for classification purposes. |
-| <kbd> app.py </kbd> |This file consists of necessary code to train and deploy model on streamlit and other components for classification purposes. |
+|:----------:|----------|
+|<kbd> PCOS_Prediction.ipynb </kdb>| This file consists of PCOS related dataset and necessary features used for classification purposes. |
+|<kbd> app.py </kbd> |This file consists of necessary code to train and deploy model on streamlit and other components for classification purposes. |
 
 ## About Project
 
@@ -124,7 +124,7 @@ pimples: (No)
 
 ## Docker Deployment
 
-- When , you wanted to deploy this app. Replace the file location in <kbd> app.py </kbd>.
+- When , you wanted to deploy this app. Replace the file location in <kbd>app.py</kbd>.
 
 ```bash
 data = pd.read_csv("/app/dataset/cleaned_data.csv")
@@ -139,6 +139,7 @@ docker push debasishray/pcos-streamlit-app:v1.0
 ```
 
 **[Link to docker image](https://hub.docker.com/repository/docker/debasishray/pcos-streamlit-app/general)**
+
 
 ## Contributors
 
