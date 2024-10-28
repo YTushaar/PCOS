@@ -25,13 +25,13 @@ from sklearn.model_selection import train_test_split
 
 
 def show_treatment():
-    st.write("1. Lifestyle changes: Eating a healthy diet and exercising can help reduce weight, lower blood sugar levels, and improve insulin sensitivity. ")
-    st.write("2. Hormonal birth control: Can help regulate menstrual cycles, reduce acne, and lower the risk of endometrial cancer. ")
-    st.write("3. Anti-androgen medicines: Can help reduce acne and unwanted hair growth, but are not FDA approved to treat PCOS and can cause birth defects. ")
-    st.write("4. Metformin: Can help lower insulin and androgen levels, and may help restart ovulation. ")
-    st.write("5. Progestin therapy: Can help normalize menstrual cycles and reduce the risk of uterine cancer. ")
-    st.write("6. Clomifene: Can help encourage ovulation. ")
-    st.write("7. Laparoscopic ovarian drilling (LOD): A surgical procedure that uses heat or a laser to destroy tissue in the ovaries that produces androgens")
+    st.markdown("1. Lifestyle changes: Eating a healthy diet and exercising can help reduce weight, lower blood sugar levels, and improve insulin sensitivity. ")
+    st.markdown("2. Hormonal birth control: Can help regulate menstrual cycles, reduce acne, and lower the risk of endometrial cancer. ")
+    st.markdown("3. Anti-androgen medicines: Can help reduce acne and unwanted hair growth, but are not FDA approved to treat PCOS and can cause birth defects. ")
+    st.markdown("4. Metformin: Can help lower insulin and androgen levels, and may help restart ovulation. ")
+    st.markdown("5. Progestin therapy: Can help normalize menstrual cycles and reduce the risk of uterine cancer. ")
+    st.markdown("6. Clomifene: Can help encourage ovulation. ")
+    st.markdown("7. Laparoscopic ovarian drilling (LOD): A surgical procedure that uses heat or a laser to destroy tissue in the ovaries that produces androgens")
 
 
 
