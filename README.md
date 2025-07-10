@@ -1,4 +1,4 @@
-# PCOS Prediction using Multi-Layer Perceptron
+# PCOS Prediction
 
 ## Introduction
 
